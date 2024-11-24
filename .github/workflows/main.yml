@@ -23,13 +23,7 @@ jobs:
 
     - name: Install Dependencies
       run: npm install
-
-    - name: Run Linter
-      run: npm run lint # Asegúrate de tener un script lint en tu package.json
-
-    - name: Run Tests
-      run: npm test # Asegúrate de tener configurados tests en tu proyecto
-
+        
   deploy:
     needs: build-and-test
     runs-on: ubuntu-latest

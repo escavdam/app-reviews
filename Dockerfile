@@ -1,16 +1,15 @@
-FROM node:18
+FROM mhart/alpine-node
 
-WORKDIR /app
+# Create app directory
+RUN mkdir -p /usr/src/app
+WORKDIR /usr/src/app
 
-COPY package.json .
-
-RUN apt-get update && apt-get install -y python3 make g++ && rm -rf /var/lib/apt/lists/*
-RUN npm install -g node-gyp
-ENV npm_config_build_from_source=true
-ENV npm_config_python=/usr/bin/python3
-
+# Install app dependencies
+COPY package.json /usr/src/app/
 RUN npm install
 
-COPY . .
+# Bundle app source
+COPY . /usr/src/app
 
-CMD ["npm", "start"]
+EXPOSE 8080
+CMD [ "npm", "start" ]
