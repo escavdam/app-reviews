@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Perfil</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <header>
+    <h1>express-app</h1>
+    <nav>
+      <a href="perfil.html">Perfil</a>
+      <a href="login.html" hidden>Iniciar sesión</a>
+      <a href="register.html" hidden>Registrarse</a>
+      <a href="/api/logout" >Cerrar sesión</a>
+  </header>
+  </nav>
+  <main></main>
+  <script>
+    const main = document.querySelector('main');
+    fetch('/api/perfil')
+      .then(response => response.json())
+      .then(data => {
+        if (data.error) {
+          main.innerHTML = data.error;
+        } else {
+          main.innerHTML = `<h2>Bienvenido ${data.user}</h2>`;
+        }
+      });
+
+
+  </script>
+</body>
+</html>

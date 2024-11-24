@@ -10,8 +10,10 @@
   <header>
     <h1>express-app</h1>
     <nav>
+      <a href="perfil.html" hidden>Perfil</a>
       <a href="login.html">Iniciar sesión</a>
       <a href="register.html">Registrarse</a>
+      <a href="/api/logout" hidden>Cerrar sesión</a>
     </nav>
   </header>
   <main>
@@ -20,7 +22,34 @@
       <input type="text" name="user" placeholder="Username">
       <input type="password" name="password" placeholder="Password">
       <input type="submit" value="Registrarse">
-      <p>¿Ya tienes cuenta? <a href="/login.html">Inicia sesión</a></p>
+      <p id="respuesta">¿Ya tienes cuenta? <a href="/login.html">Inicia sesión</a></p>
+
+      <script>
+        const form = document.querySelector('form');
+        const respuesta = document.getElementById('respuesta');
+        form.addEventListener('submit', async (e) => {
+          e.preventDefault();
+          const user = form.user.value;
+          const password = form.password.value;
+          const response = await fetch('/api/register', {
+            method: 'POST',
+            headers: {
+              'Content-Type': 'application/json'
+            },
+            body: JSON.stringify({ user, password })
+          });
+          const data = await response.json();
+          if (data.error) {
+            respuesta.innerHTML = data.error + '. ¿Ya tienes cuenta? <a href="/login.html">Inicia sesión</a>';
+          } else {
+            document.querySelector('nav a[href="login.html"]').hidden = true;
+            document.querySelector('nav a[href="register.html"]').hidden = true;
+            document.querySelector('nav a[href="/api/logout"]').hidden = false;
+            document.querySelector('nav a[href="perfil.html"]').hidden = false;
+            respuesta.innerHTML = `${data.message}, bienvenido <b>${data.user}</b>, puedes iniciar sesión <a href="/login.html">aquí</a>.`
+          }
+        });
+      </script>
     </form>
   </main>
 </body>

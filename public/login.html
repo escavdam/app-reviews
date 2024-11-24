@@ -10,8 +10,10 @@
   <header>
     <h1>express-app</h1>
     <nav>
+      <a href="perfil.html" hidden>Perfil</a>
       <a href="login.html">Iniciar sesión</a>
       <a href="register.html">Registrarse</a>
+      <a href="/api/logout" hidden>Cerrar sesión</a>
     </nav>
   </header>
   <main>
@@ -41,6 +43,10 @@
         if (data.error) {
           respuesta.innerHTML = data.error + '. ¿No tienes cuenta? <a href="/register.html">Regístrate</a>';
         } else {
+          document.querySelector('nav a[href="login.html"]').hidden = true;
+          document.querySelector('nav a[href="register.html"]').hidden = true;
+          document.querySelector('nav a[href="/api/logout"]').hidden = false;
+          document.querySelector('nav a[href="perfil.html"]').hidden = false;
           respuesta.innerHTML = `${data.message}, bienvenido <b>${data.user}</b>`;
         }
       });

@@ -54,10 +54,30 @@ router.post('/register', (req, res) => {
     const password = req.body.password;
     const userObj = getUser(user);
     if (userObj) {
-        res.status(409).send('Usuario ya existe');
+        const response = {
+            user: user,
+            error: "Ya hay un usuario con ese nombre"
+        }
+        res.status(409).send(response);
     } else {
         createUser(user, password);
-        res.status(201).send('Usuario creado');
+        const response = {
+            user: user,
+            message: "Usuario creado"
+        }
+        res.status(201).send(response);
+    }
+});
+
+router.get("/perfil", (req, res) => {
+    if (req.session.user) {
+        const response = {
+            user: req.session.user,
+            //isAdmin: req.session.isAdmin
+        }
+        res.status(200).send(response);
+    } else {
+        res.status(401).send('Debes hacer login');
     }
 });
 
@@ -82,6 +102,11 @@ router.post('/login', (req, res) => {
         }
         res.status(401).send(response);
     }
+});
+
+router.get('/logout', (req, res) => {
+    req.session.destroy();
+    res.status(200).redirect('/login.html');
 });
 
 module.exports = router;
