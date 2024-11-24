@@ -70,9 +70,17 @@ router.post('/login', (req, res) => {
         req.session.user = user; // Guarda el usuario en la sesión
         req.session.isAdmin = userObj.role === 'admin';
         res.cookie('sessionId', req.sessionID, { httpOnly: true, secure: true });
-        res.status(200).send('Login correcto');
+        response = {
+            user: user,
+            message: 'Login correcto'
+        }
+        res.status(200).send(response);
     } else {
-        res.status(401).send('Login incorrecto');
+        response = {
+            user: user,
+            error: 'Login incorrecto'
+        }
+        res.status(401).send(response);
     }
 });
 

@@ -20,8 +20,31 @@
       <input type="text" name="user" placeholder="Username">
       <input type="password" name="password" placeholder="Password">
       <input type="submit" value="Iniciar sesión">
-      <p>¿No tienes cuenta? <a href="/register.html">Regístrate</a></p>
+      <p id="respuesta">¿No tienes cuenta? <a href="/register.html">Regístrate</a></p>
     </form>
+
+    <script>
+      const form = document.querySelector('form');
+      const respuesta = document.getElementById('respuesta');
+      form.addEventListener('submit', async (e) => {
+        e.preventDefault();
+        const user = form.user.value;
+        const password = form.password.value;
+        const response = await fetch('/api/login', {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json'
+          },
+          body: JSON.stringify({ user, password })
+        });
+        const data = await response.json();
+        if (data.error) {
+          respuesta.innerHTML = data.error + '. ¿No tienes cuenta? <a href="/register.html">Regístrate</a>';
+        } else {
+          respuesta.innerHTML = `${data.message}, bienvenido <b>${data.user}</b>`;
+        }
+      });
+    </script>
   </main>
 </body>
 </html>
