@@ -4,13 +4,24 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>login</title>
+  <link rel="stylesheet" href="style.css">
 </head>
 <body>
-  <h1>login</h1>
-  <form action="/api/login" method="POST">
-    <input type="text" name="user" placeholder="user">
-    <input type="password" name="password" placeholder="Password">
-    <button type="submit">Iniciar sesión</button>
-  </form>
+  <header>
+    <h1>express-app</h1>
+    <nav>
+      <a href="login.html">Iniciar sesión</a>
+      <a href="register.html">Registrarse</a>
+    </nav>
+  </header>
+  <main>
+    <form action="/api/login" method="POST">
+      <h2>Login</h2>
+      <input type="text" name="user" placeholder="Username">
+      <input type="password" name="password" placeholder="Password">
+      <input type="submit" value="Iniciar sesión">
+      <p>¿No tienes cuenta? <a href="/register.html">Regístrate</a></p>
+    </form>
+  </main>
 </body>
 </html>
