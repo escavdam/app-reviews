@@ -2,7 +2,6 @@ const express = require('express');
 const router = express.Router();
 const path = require('path');
 const { createUser, getUser, getAllUsers, updateUser, deleteUser, validateUser } = require('../database');
-const cookieParser = require('cookie-parser');
 
 router.post('/users', (req, res) => {
     const user = req.body.user;

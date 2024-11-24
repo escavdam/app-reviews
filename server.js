@@ -1,11 +1,13 @@
+const dotenv = require('dotenv').config();
 const express = require('express');
 const app = express();
 const port = 3000;
+const COOKIE_SECRET = process.env.COOKIE_SECRET;
 const session = require('express-session');
 app.use(express.static('public'));
 
 app.use(session({
-    secret: 'tu_secreto_seguro', // Cambia esto por una cadena segura
+    secret: COOKIE_SECRET, // Cambia esto por una cadena segura
     resave: false,
     saveUninitialized: true,
     cookie: { secure: false } // Cambia a true si usas HTTPS
