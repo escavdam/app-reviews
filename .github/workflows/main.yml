@@ -23,7 +23,7 @@ jobs:
 
     - name: Install Dependencies
       run: npm install
-        
+
   deploy:
     needs: build-and-test
     runs-on: ubuntu-latest
@@ -45,7 +45,6 @@ jobs:
         docker tag ${{ secrets.DOCKER_USERNAME }}/express-app:${{ github.sha }} ${{ secrets.DOCKER_USERNAME }}/express-app:latest
         docker push ${{ secrets.DOCKER_USERNAME }}/express-app:${{ github.sha }}
         docker push ${{ secrets.DOCKER_USERNAME }}/express-app:latest
-        EOF
 
 #    - name: Deploy to Server
 #      run: |
@@ -54,3 +53,4 @@ jobs:
 #        docker stop express-app || true
 #        docker rm express-app || true
 #        docker run -d --name express-app -p 80:3000 ${{ secrets.DOCKER_USERNAME }}/express-app:latest
+#        EOF

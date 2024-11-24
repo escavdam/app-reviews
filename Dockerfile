@@ -4,7 +4,7 @@ FROM node:18
 # Crea un directorio de trabajo
 WORKDIR /usr/src/app
 
-# Copia el archivo package.json y package-lock.json
+# Copia el archivo package.json
 COPY package.json ./
 
 # Instala las dependencias
