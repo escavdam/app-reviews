@@ -18,3 +18,9 @@ EXPOSE 3000
 
 # Define el comando para ejecutar la aplicación
 CMD ["node", "server.js"]
+
+# Crear la imagen
+# docker build -t node-app .
+
+# Ejecutar la imagen
+# docker run -p 3000:3000 node-app
