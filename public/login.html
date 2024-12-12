@@ -22,9 +22,7 @@
       <input type="text" name="user" placeholder="Username">
       <input type="password" name="password" placeholder="Password">
       <input type="submit" value="Iniciar sesión">
-      <p id="respuesta">¿No tienes cuenta? <a href="/register.html">Regístrate</a></p>
     </form>
-
     <script>
       const form = document.querySelector('form');
       const respuesta = document.getElementById('respuesta');
@@ -41,7 +39,7 @@
         });
         const data = await response.json();
         if (data.error) {
-          respuesta.innerHTML = data.error + '. ¿No tienes cuenta? <a href="/register.html">Regístrate</a>';
+          respuesta.innerHTML = data.error;
         } else {
           document.querySelector('nav a[href="login.html"]').hidden = true;
           document.querySelector('nav a[href="register.html"]').hidden = true;
