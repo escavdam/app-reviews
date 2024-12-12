@@ -49,6 +49,13 @@ function validateUser(user, password) {
     return bcrypt.compareSync(password, userObj.password);
 }
 
+function insertReview(rating, message) {
+    const insertReviewStatement = db.prepare(`
+        INSERT INTO reviews (rating, message) 
+        VALUES (?, ?)
+    `);
+    insertReviewStatement.run(rating, message);  
+}
 
 
 module.exports = {
@@ -57,5 +64,6 @@ module.exports = {
     getAllUsers,
     updateUser,
     deleteUser,
-    validateUser
+    validateUser,
+    insertReview
 };

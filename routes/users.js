@@ -1,7 +1,7 @@
 const express = require('express');
 const router = express.Router();
 const path = require('path');
-const { createUser, getUser, getAllUsers, updateUser, deleteUser, validateUser } = require('../database');
+const { createUser, getUser, getAllUsers, updateUser, deleteUser, validateUser, insertReview } = require('../database');
 
 router.post('/users', (req, res) => {
     const user = req.body.user;
@@ -107,6 +107,28 @@ router.post('/login', (req, res) => {
 router.get('/logout', (req, res) => {
     req.session.destroy();
     res.status(200).redirect('/login.html');
+});
+
+router.post('/reviews', (req, res) => {
+    const { rating, message } = req.body;
+
+    // Validaciones
+    if (!['good', 'neutral', 'bad'].includes(rating)) {
+        return res.status(400).send({ error: 'Invalid rating value' });
+    }
+
+    if (typeof message !== 'string' || message.length > 256) {
+        return res.status(400).send({ error: 'Message exceeds character limit' });
+    }
+
+    try {
+        // Llamar a la función insertReview para guardar la reseña en la base de datos
+        insertReview(rating, message);
+        res.status(201).send({ message: 'Review created successfully' });
+    } catch (err) {
+        console.error(err);
+        res.status(500).send({ error: 'Error creating review' });
+    }
 });
 
 module.exports = router;
