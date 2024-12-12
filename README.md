@@ -1,59 +1,23 @@
-# Flujo de trabajo con ramas
+# Funcionamiento con las ramas
 
-1. **Trabajar en una rama del repositorio principal**
-   - Cada tarea se realiza en una rama específica creada desde la rama principal (`main`).
-   - Crear una nueva rama con:
-     ```bash
-     git checkout -b <nombre-de-la-rama>
-     ```
-
-2. **Mantener la rama principal actualizada**
-   - Antes de empezar a trabajar, asegúrate de que tu rama principal local esté actualizada:
-     ```bash
-     git pull origin main
-     ```
-
-3. **Integrar los cambios de la rama principal en tu rama de trabajo**
-   - Si la rama principal ha recibido cambios mientras trabajas, integra esos cambios en tu rama:
-     ```bash
-     git merge main
-     ```
-
-4. **Documentar cambios**
-   - Antes de fusionar tu rama a la rama principal, documenta los cambios realizados en el archivo `README.md` u otros documentos relevantes.
-
-5. **Crear un pull request desde tu rama**
-   - Una vez completada la tarea, crea un pull request para fusionar tu rama en la rama principal.
-
-Cumplir con estas reglas nos ayudará a mantener un flujo de trabajo eficiente y ordenado.
-
-/////////////////////   In English   //////////////////// 
+1. Creo la rama desde github
+2. Clono el repo
+3. Entro en mi rama con `git checkout <nombre rama>` o con el boton de vscode.
+4. Añado/modifico codigo
+5. Añado cambios con `git add .` o `git add <nombre archivo>`
+6. Confirmo cambios con `git commit -m "mensaje"`, esto solo sube los cambios a la rama en la que estes
+7. Pusheo cambios con `git push origin <nombre rama>`
+8. Creo un pull request en github
+9. Alguien deberá de recoger esta rama y `git merge main <nombre de rama>` (esto se hace desde el main)
 
 # Workflow with Branches
 
-1. **Work on a branch of the main repository**
-   - Each task is carried out in a specific branch created from the main branch (`main`).
-   - Create a new branch with:
-     ```bash
-     git checkout -b <branch-name>
-     ```
-
-2. **Keep the main branch updated**
-   - Before starting work, ensure your local main branch is up to date:
-     ```bash
-     git pull origin main
-     ```
-
-3. **Integrate changes from the main branch into your working branch**
-   - If the main branch receives changes while you are working, integrate those changes into your branch:
-     ```bash
-     git merge main
-     ```
-
-4. **Document changes**
-   - Before merging your branch into the main branch, document the changes made in the `README.md` file or other relevant documents.
-
-5. **Create a pull request from your branch**
-   - Once the task is complete, create a pull request to merge your branch into the main branch.
-
-Following these rules will help us maintain an efficient and organized workflow.
+1. I create the branch from GitHub.
+2. I clone the repo.
+3. I switch to my branch with git checkout <branch name> or using the button in VSCode.
+4. I add/modify code.
+5. I stage changes with git add . or git add <file name>.
+6. I commit changes with git commit -m "message", which only uploads the changes to the branch I’m on.
+7. I push changes with git push origin <branch name>.
+8. I create a pull request on GitHub.
+9. Someone will need to pick up this branch and git merge main <branch name> (this is done from the main branch).
