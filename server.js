@@ -7,8 +7,6 @@ const session = require('express-session');
 const noob_helper = require("./noob_helper.js")
 app.use(express.static('public'));
 
-
-
 app.use(session({
     secret: COOKIE_SECRET, // Cambia esto por una cadena segura
     resave: false,
@@ -18,7 +16,7 @@ app.use(session({
 
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
-app.use(noob_helper)
+//app.use(noob_helper)
 
 const users = require('./routes/users');
 app.use("/api/", users);
