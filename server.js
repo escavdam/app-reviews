@@ -4,7 +4,6 @@ const app = express();
 const port = 3000;
 const COOKIE_SECRET = process.env.COOKIE_SECRET;
 const session = require('express-session');
-const noob_helper = require("./noob_helper.js")
 app.use(express.static('public'));
 
 app.use(session({
@@ -16,7 +15,6 @@ app.use(session({
 
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
-//app.use(noob_helper)
 
 const users = require('./routes/users');
 app.use("/api/", users);
