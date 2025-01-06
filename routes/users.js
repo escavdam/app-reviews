@@ -1,13 +1,15 @@
 const express = require('express');
 const router = express.Router();
 const path = require('path');
-const { createUser, getUser, getAllUsers, updateUser, deleteUser, validateUser } = require('../database');
+const { createUser, getUser, getAllUsers, updateUser, deleteUser, validateUser } = require('../models/users');
+const users = require('../models/users');
 
 router.post('/users', (req, res) => {
+    console.log(users)
     const user = req.body.user;
     const password = req.body.password;
     try {
-        createUser(user, password);
+        users.create({ username: user, password: password });
         res.status(201).send('Usuario creado');
     } catch (err) {
         res.status(500).send("Error al crear el usuario");
