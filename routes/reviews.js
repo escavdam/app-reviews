@@ -1,7 +1,6 @@
 const express = require('express');
 const router = express.Router();
 const path = require('path');
-const { createUser, getUser, getAllUsers, updateUser, deleteUser, validateUser } = require('../models/users');
 const { insertReview } = require('../models/reviews'); 
 
 router.post('/reviews', async (req, res) => {
@@ -17,13 +16,21 @@ router.post('/reviews', async (req, res) => {
     }
 
     try {
+        // Obtener el usuario de la sesión
+        const user = req.session.user;
+
+        // Añadir la fecha actual en formato "día/mes/año hora:minutos"
+        const now = new Date();
+        const currentDate = `${now.getDate().toString().padStart(2, '0')}/${(now.getMonth() + 1).toString().padStart(2, '0')}/${now.getFullYear()} ${now.getHours().toString().padStart(2, '0')}:${now.getMinutes().toString().padStart(2, '0')}`;
+
         // Llamar a la función insertReview para guardar la reseña en la base de datos
-        await insertReview(rating, message);
+        await insertReview(rating, message, user, currentDate);
         res.status(201).json({ message: 'Review created successfully' });
     } catch (err) {
         console.error('Error creating review:', err);
         res.status(500).json({ error: 'Internal server error. Please try again later.' });
     }
 });
+
 
 module.exports = router;
