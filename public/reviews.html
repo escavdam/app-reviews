@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Reviews</title>
+    <link rel="stylesheet" href="/style.css">
+</head>
+<body>
+    <h1>Reseñas hacia los profesores</h1>
+
+    <!-- Contenedor donde se mostrarán las reseñas -->
+    <div id="reviews-container"></div>
+
+    <script>
+        // Función para formatear la fecha en formato dd/mm/yyyy
+        function formatDate(date) {
+            const d = new Date(date);  // Convertimos la cadena ISO en un objeto Date
+            const day = String(d.getDate()).padStart(2, '0');
+            const month = String(d.getMonth() + 1).padStart(2, '0');  // Los meses empiezan desde 0
+            const year = d.getFullYear();
+            return `${day}/${month}/${year}`;
+        }
+
+        // Función para cargar las reseñas desde la API
+        async function loadReviews() {
+            try {
+                const response = await fetch('/api/reviews');  // Hacemos una solicitud GET a /api/reviews
+                const reviews = await response.json();  // Parseamos la respuesta como JSON
+                
+                // Si la respuesta está vacía, mostramos un mensaje
+                if (reviews.length === 0) {
+                    document.getElementById('reviews-container').innerHTML = '<p>No hay reseñas disponibles.</p>';
+                    return;
+                }
+
+                // Si hay reseñas, las mostramos en el contenedor
+                let reviewsHTML = '';
+                reviews.forEach(review => {
+                    // Convertimos la fecha en formato ISO a un objeto Date y luego la formateamos
+                    const formattedDate = formatDate(review.time);  // Asegurándonos de que review.time es la fecha en formato ISO
+
+                    reviewsHTML += `
+                        <div class="review">
+                            <p><strong>Username:</strong> ${review.username}</p>
+                            <p><strong>Rating:</strong> ${review.rating}</p>
+                            <p><strong>Message:</strong> ${review.message}</p>
+                            <p><strong>Date:</strong> ${formattedDate}</p>
+                        </div>
+                    `;
+                });
+
+                // Insertamos las reseñas en el contenedor
+                document.getElementById('reviews-container').innerHTML = reviewsHTML;
+
+            } catch (error) {
+                // Si ocurre un error, mostramos un mensaje
+                document.getElementById('reviews-container').innerHTML = '<p>Error al cargar las reseñas.</p>';
+                console.error('Error fetching reviews:', error);
+            }
+        }
+
+        // Llamamos a la función para cargar las reseñas cuando la página se cargue
+        loadReviews();
+    </script>
+</body>
+</html>

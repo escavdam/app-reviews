@@ -12,10 +12,19 @@ router.get('/reviews', (req, res) => {
 
 router.post('/reviews', (req, res) => {
     const { rating, message } = req.body;
-    const user = "luisfernandez"
+    const user = "admin";
     const now = new Date();
-    insertReview("now", rating, message, user)
-    res.json({rating, message, user, now})
+
+    insertReview(now.toISOString(), rating, message, user);  // Guardamos la fecha en formato ISO
+
+    res.json({
+        rating,
+        message,
+        user,
+        time: now.toISOString()  // Enviamos la fecha como una cadena ISO
+    });
 });
+
+
 
 module.exports = router;

@@ -26,12 +26,14 @@ header{
     background: #333;
     color: #fff;
     padding: 10px 20px;
-    a {
-        color: #fff;
-        text-decoration: none;
-        margin-left: 30px;
-    }
 }
+
+header a {
+    color: #fff;
+    text-decoration: none;
+    margin-left: 30px;
+}
+
 form {
     width: 100%;
     max-width: 500px;
@@ -40,21 +42,81 @@ form {
     background-color: #fff;
     border-radius: 5px;
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-
-    input {
-        display: block;
-        width: 100%;
-        margin: 10px 0;
-        padding: 10px;
-        font-size: 1.2rem;
-        border: 1px solid #ddd;
-        border-radius: 5px;
-    }
-
-    input[type="submit"] {
-        background-color: #333;
-        color: #fff;
-        cursor: pointer;
-    }
 }
 
+form input {
+    display: block;
+    width: 100%;
+    margin: 10px 0;
+    padding: 10px;
+    font-size: 1.2rem;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+}
+
+form input[type="submit"] {
+    background-color: #333;
+    color: #fff;
+    cursor: pointer;
+}
+
+/* Estilos para las reseñas */
+#reviews-container {
+    max-width: 800px;
+    margin: 30px auto;
+    padding: 20px;
+    background-color: #fff;
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+/* Estilo para cada reseña */
+.review {
+    background-color: #f9f9f9;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    padding: 15px;
+    margin-bottom: 20px;
+    transition: background-color 0.3s ease;
+}
+
+.review:hover {
+    background-color: #f1f1f1;
+}
+
+.review p {
+    margin: 10px 0;
+}
+
+.review strong {
+    font-weight: bold;
+}
+
+/* Estilo para los ratings */
+.review .rating {
+    font-size: 1.5em;
+    color: #FFD700;
+}
+
+/* Mensaje de error o vacío */
+#reviews-container p {
+    font-size: 1.2em;
+    color: #FF6347;
+    text-align: center;
+}
+
+/* Diseño responsivo: ajuste para pantallas más pequeñas */
+@media (max-width: 600px) {
+    body {
+        font-size: 14px;
+    }
+    header {
+        font-size: 0.9rem;
+    }
+    #reviews-container {
+        padding: 10px;
+    }
+    .review {
+        padding: 10px;
+    }
+}
