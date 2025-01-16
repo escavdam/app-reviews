@@ -4,15 +4,40 @@ const path = require('path');
 const { createUser, getUser, getAllUsers, updateUser, deleteUser, validateUser } = require('../models/users');
 const users = require('../models/users');
 
-router.post('/users', (req, res) => {
-    console.log(users)
-    const user = req.body.user;
-    const password = req.body.password;
+const db = require('../database');  
+
+
+router.get('/reviews', (req, res) => {
     try {
-        users.create({ username: user, password: password });
-        res.status(201).send('Usuario creado');
+        const consulta = db.prepare("SELECT * FROM reviews");
+        const reviews = consulta.all();
+        res.status(200).json(reviews);
     } catch (err) {
-        res.status(500).send("Error al crear el usuario");
+        console.error(err);
+        res.status(500).send("Error al obtener las reviews");
+    }
+});
+
+router.get('/reviews/:id', (req, res) => {
+    const id = req.params.id;
+
+    // Verificar si el usuario está autenticado y si es administrador
+    if (req.session.user && req.session.isAdmin) {
+        try {
+            const consulta = db.prepare("SELECT * FROM reviews WHERE id = ?");
+            const review = consulta.get(id);
+
+            if (review) {
+                res.status(200).json(review);
+            } else {
+                res.status(404).send('Review no encontrada');
+            }
+        } catch (err) {
+            console.error(err);
+            res.status(500).send("Error al obtener la review");
+        }
+    } else {
+        res.status(403).json({ message: 'Acceso denegado: Solo administradores' });
     }
 });
 
@@ -110,6 +135,7 @@ router.get('/logout', (req, res) => {
     req.session.destroy();
     res.status(200).redirect('/login.html');
 });
+
 
 module.exports = router;
 
