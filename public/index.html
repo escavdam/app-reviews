@@ -8,11 +8,56 @@
         * {
             margin: 0;
             padding: 0;
-            box-sizing: border-box;
+        }
+
+        nav {
+            background-color: #333;
+            color: white;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 10px 20px;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            z-index: 1000; /* Asegura que la barra de navegación esté siempre encima del contenido */
+        }
+
+        /* Estilo para el logo */
+        nav .logo h1 {
+            margin: 0;
+            font-size: 24px;
+        }
+
+        /* Estilo para los enlaces de la barra de navegación */
+        nav .nav-links {
+            list-style: none;
+            margin: 0;
+            padding: 0;
+            display: flex;
+        }
+
+        nav .nav-links li {
+            margin-left: 20px;
+        }
+
+        nav .nav-links a {
+            text-decoration: none;
+            color: white;
+            font-size: 16px;
+            padding: 5px 10px;
+            transition: background-color 0.3s ease;
+        }
+
+        nav .nav-links a:hover {
+            background-color: #575757;
+            border-radius: 5px;
         }
 
         /* Fondo y color de texto para la página */
         body {
+            box-sizing: border-box;
             font-family: Arial, sans-serif;
             background-color: #f4f4f9;
             display: flex;
@@ -77,6 +122,18 @@
     <title>Encuestas</title>
 </head>
 <body>
+    <nav>
+        <div class="logo">
+            <h1>Mi Página</h1>
+        </div>
+        <div>
+            <ul class="nav-links">
+                <a href="login.html">Iniciar sesión</a>
+                <a href="register.html">Registrarse</a>
+                <a href="index.html">Nueva review</a>
+            </ul>
+        </div>
+    </nav>
     <div class="encuesta-container">
         <h1 id="changeface"></h1>
         <form id="form">
