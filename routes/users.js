@@ -2,11 +2,8 @@ const express = require('express');
 const router = express.Router();
 const path = require('path');
 const { createUser, getUser, getAllUsers, updateUser, deleteUser, validateUser } = require('../models/users');
-const users = require('../models/users');
 
-const db = require('../database');  
-
-
+/*
 router.get('/reviews', (req, res) => {
     try {
         const consulta = db.prepare("SELECT * FROM reviews");
@@ -40,7 +37,7 @@ router.get('/reviews/:id', (req, res) => {
         res.status(403).json({ message: 'Acceso denegado: Solo administradores' });
     }
 });
-
+*/
 router.get('/users', (req, res) => {
     res.json(getAllUsers());
 });

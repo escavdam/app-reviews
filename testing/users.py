@@ -4,12 +4,14 @@ from random import choice
 nombres = ['maria', 'juan', 'pedro', 'luis', 'ana', 'laura', 'carlos', 'jose', 'jorge', 'lucia']
 segundo_nombre = ['sanchez', 'perez', 'gomez', 'rodriguez', 'garcia', 'martinez', 'lopez', 'fernandez', 'gonzalez', 'diaz']
 
+nombre = choice(nombres) + choice(segundo_nombre)
+
 def post_user(username, password):
     response = requests.post(f'http://localhost:3000/api/register', json={'user': username, 'password': password})
     return response.json()
 
 print("Testeando POST /api/users")
-print(post_user(choice(nombres) + choice(segundo_nombre), '1234'))
+print(post_user(nombre, '1234'))
 
 def get_users():
     response = requests.get(f'http://localhost:3000/api/users')
@@ -23,4 +25,4 @@ def get_user(username):
     return response.json()
 
 print("Testeando GET /api/users/:username")
-print(get_user('test'))
+print(get_user(nombre))
