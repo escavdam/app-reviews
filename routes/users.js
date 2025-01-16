@@ -8,8 +8,8 @@ const db = require('../database');
 
 router.get('/reviews', (req, res) => {
     try {
-        const stmt = db.prepare("SELECT * FROM reviews");
-        const reviews = stmt.all();
+        const consulta = db.prepare("SELECT * FROM reviews");
+        const reviews = consulta.all();
         res.status(200).json(reviews);
     } catch (err) {
         console.error(err);
@@ -23,8 +23,8 @@ router.get('/reviews/:id', (req, res) => {
     // Verificar si el usuario está autenticado y si es administrador
     if (req.session.user && req.session.isAdmin) {
         try {
-            const stmt = db.prepare("SELECT * FROM reviews WHERE id = ?");
-            const review = stmt.get(id);
+            const consulta = db.prepare("SELECT * FROM reviews WHERE id = ?");
+            const review = consulta.get(id);
 
             if (review) {
                 res.status(200).json(review);
