@@ -3,7 +3,7 @@ const router = express.Router();
 const path = require('path');
 const { createUser, getUser, getAllUsers, updateUser, deleteUser, validateUser } = require('../models/users');
 const users = require('../models/users');
-const db = require('../database');  
+const { db } = require('../database'); 
 
 
 router.get('/reviews', (req, res) => {
@@ -16,7 +16,27 @@ router.get('/reviews', (req, res) => {
         res.status(500).send("Error al obtener las reviews");
     }
 });
+// Ruta para obtener todas las reseñas (rating y message) desde la base de datos
+router.get("/api/reviews", (req, res) => {
+    try {
+        // Consulta SQL para obtener solo los campos 'rating' y 'message' de la tabla 'reviews'
+        const stmt = db.prepare("SELECT rating, message FROM reviews");
+        const reviews = stmt.all();  // Ejecuta la consulta y obtiene todas las reseñas
 
+        // Verificamos si hay reseñas en la base de datos
+        if (reviews.length === 0) {
+            return res.status(404).json({ message: "No se encontraron reseñas en la base de datos" });
+        }
+
+        // Si existen reseñas, las devolvemos en formato JSON
+        res.json(reviews);  // Devolvemos las reseñas como respuesta
+
+    } catch (error) {
+        // En caso de error, se captura y responde con un mensaje de error
+        console.error(error);
+        res.status(500).json({ error: "Error al obtener las reseñas de la base de datos" });
+    }
+});
 router.get('/reviews/:id', (req, res) => {
     const id = req.params.id;
 
