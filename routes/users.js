@@ -8,8 +8,8 @@ const { db } = require('../database');
 
 router.get('/reviews', (req, res) => {
     try {
-        const stmt = db.prepare("SELECT * FROM reviews");
-        const reviews = stmt.all();
+        const consulta = db.prepare("SELECT * FROM reviews");
+        const reviews = consulta.all();
         res.status(200).json(reviews);
     } catch (err) {
         console.error(err);
@@ -20,8 +20,8 @@ router.get('/reviews', (req, res) => {
 router.get("/api/reviews", (req, res) => {
     try {
         // Consulta SQL para obtener solo los campos 'rating' y 'message' de la tabla 'reviews'
-        const stmt = db.prepare("SELECT rating, message FROM reviews");
-        const reviews = stmt.all();  // Ejecuta la consulta y obtiene todas las reseñas
+        const consulta = db.prepare("SELECT rating, message FROM reviews");
+        const reviews = consulta.all();  // Ejecuta la consulta y obtiene todas las reseñas
 
         // Verificamos si hay reseñas en la base de datos
         if (reviews.length === 0) {
