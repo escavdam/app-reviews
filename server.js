@@ -18,6 +18,9 @@ app.use(express.urlencoded({ extended: true }));
 
 const users = require('./routes/users');
 app.use("/api/", users);
+const reviews = require('./routes/reviews');
+app.use("/api/", reviews);
+
 
 app.get("/", (req,res) => {
     res.sendFile(__dirname + '/public/home.html');
