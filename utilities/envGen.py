@@ -1,3 +1,5 @@
+# If you want to run this script launch python3 utilities/envGen.py
+
 import uuid
 import hashlib
 import time
