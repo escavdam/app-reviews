@@ -79,14 +79,12 @@
 <body>
     <div class="encuesta-container">
         <h1 id="changeface"></h1>
-        <form id="form-btn">
+        <form id="form">
             <button type="button" id="btnGood" >Good!</button>
             <button type="button" id="btnRegular" >Regular</button>
             <button type="button" id="btnBad" >Bad</button>
-            
-        </form>
-        <form id="form-inputText">
-            <input type="text">
+        
+            <input type="text" id="inputText">
             <button type="submit">Send</button>
         </form>
     </div>
@@ -115,17 +113,36 @@
                 changeFace.innerHTML = badFace;
             });
 
-            const formInputText = document.getElementById('form-inputText');
+            const formInputText = document.getElementById('form');
 
             formInputText.addEventListener('submit', (e) => {
                 e.preventDefault();
-                const message = messageInput.value;
+
+                const message = document.getElementById('inputText').value
+                //console.log(message)
 
                 // Validar longitud del mensaje
                 if (message.length > 256) {
                     alert('El mensaje no debe exceder los 256 caracteres.');
                     return;
                 }
+
+                const emoji = document.getElementById('changeface').textContent
+
+                let rating;
+                
+                if (emoji === "😊") {
+                    rating = "Good"
+                }else if(emoji === "👎"){
+                    rating = "Bad"
+                }else if(emoji === "😐"){
+                    rating = "Regular"
+                }else{
+                    alert('No has seleccionado ninguna valoración')
+                    return;
+                }
+
+                //console.log(rating)
 
                 // Enviar datos de la encuesta al servidor
                 fetch('/api/reviews', {
