@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Reviews</title>
+    <link rel="stylesheet" href="/style.css">
+</head>
+<body>
+    <h1>Reseñas de Productos</h1>
+
+    <!-- Contenedor donde se mostrarán las reseñas -->
+    <div id="reviews-container"></div>
+
+    <script>
+        // Función para cargar las reseñas desde la API
+        async function loadReviews() {
+            try {
+                const response = await fetch('/api/reviews');  // Hacemos una solicitud GET a /api/reviews
+                const reviews = await response.json();  // Parseamos la respuesta como JSON
+                
+                // Si la respuesta está vacía, mostramos un mensaje
+                if (reviews.length === 0) {
+                    document.getElementById('reviews-container').innerHTML = '<p>No hay reseñas disponibles.</p>';
+                    return;
+                }
+
+                // Si hay reseñas, las mostramos en el contenedor
+                let reviewsHTML = '';
+                reviews.forEach(review => {
+                    reviewsHTML += `
+                        <div class="review">
+                            <p><strong>Rating:</strong> ${review.rating}</p>
+                            <p><strong>Message:</strong> ${review.message}</p>
+                        </div>
+                    `;
+                });
+
+                // Insertamos las reseñas en el contenedor
+                document.getElementById('reviews-container').innerHTML = reviewsHTML;
+
+            } catch (error) {
+                // Si ocurre un error, mostramos un mensaje
+                document.getElementById('reviews-container').innerHTML = '<p>Error al cargar las reseñas.</p>';
+                console.error('Error fetching reviews:', error);
+            }
+        }
+
+        // Llamamos a la función para cargar las reseñas cuando la página se cargue
+        loadReviews();
+    </script>
+</body>
+</html>
