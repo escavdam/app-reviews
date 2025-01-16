@@ -3,6 +3,7 @@ const router = express.Router();
 const path = require('path');
 const { createUser, getUser, getAllUsers, updateUser, deleteUser, validateUser } = require('../models/users');
 const users = require('../models/users');
+
 const db = require('../database');  
 
 
