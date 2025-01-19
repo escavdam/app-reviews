@@ -11,8 +11,8 @@ router.get('/reviews', (req, res) => {
 });
 
 router.post('/reviews', (req, res) => {
-    const { rating, message } = req.body;
-    const user = "admin";
+    const { rating, message, user: providedUser } = req.body; // Agregar el campo 'user' de req.body
+    const user = providedUser || "Anonymous"; // Usar el valor proporcionado o un valor predeterminado
     const now = new Date();
 
     insertReview(now.toISOString(), rating, message, user);  // Guardamos la fecha en formato ISO
