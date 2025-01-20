@@ -1,5 +1,6 @@
 const dotenv = require('dotenv').config();
 const express = require('express');
+const nunjucks = require('nunjucks');
 const app = express();
 const port = 3000;
 const COOKIE_SECRET = process.env.COOKIE_SECRET;
@@ -21,10 +22,21 @@ app.use("/api/", users);
 const reviews = require('./routes/reviews');
 app.use("/api/", reviews);
 
-
 app.get("/", (req,res) => {
     res.sendFile(__dirname + '/public/home.html');
 })
+
+// Configuración de Nunjucks
+nunjucks.configure('views', {
+    autoescape: true,
+    express: app,
+  });
+  
+  app.get('/nunjucks', (req, res) => {
+    const dato = 'Hola Mundo'; 
+    res.render('test.njk', { dato: dato }); 
+  });
+
 app.listen(port, () => {
     console.log(`Server is listening at http://localhost:${port}`);
     });
