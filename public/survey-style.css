@@ -1,0 +1,68 @@
+/* Reset de márgenes y paddings por defecto */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+/* Fondo y color de texto para la página */
+body {
+    font-family: Arial, sans-serif;
+    background-color: #f4f4f9;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh; /* 100% del alto de la ventana */
+    margin: 0;
+}
+
+/* Contenedor principal de la encuesta */
+.encuesta-container {
+    background-color: #fff;
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    padding: 20px;
+    text-align: center;
+    width: 300px;
+}
+
+/* Estilo de los botones */
+button {
+    background-color: #4CAF50; /* Verde */
+    color: white;
+    border: none;
+    padding: 10px 20px;
+    margin: 10px 0;
+    cursor: pointer;
+    border-radius: 5px;
+    transition: background-color 0.3s ease;
+    user-select: none;
+}
+
+/* Estilo cuando pasamos el ratón por encima del botón */
+button:hover {
+    background-color: #45a049;
+}
+
+h1, p{
+    pointer-events: none;
+    user-select: none;
+}
+
+/* Estilo del campo de texto y el botón de envío */
+input[type="text"] {
+    width: 80%;
+    padding: 8px;
+    margin: 10px 0;
+    border-radius: 5px;
+    border: 1px solid #ccc;
+    box-sizing: border-box;
+}
+
+button[type="submit"] {
+    background-color: #008CBA; 
+}
+
+button[type="submit"]:hover {
+    background-color: #007B9F;
+}

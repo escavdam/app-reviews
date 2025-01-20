@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>login</title>
+  <title>Iniciar sesion</title>
   <link rel="stylesheet" href="style.css">
 </head>
 <body>
@@ -43,11 +43,18 @@
         if (data.error) {
           respuesta.innerHTML = data.error + '. ¿No tienes cuenta? <a href="/register.html">Regístrate</a>';
         } else {
+          // Almacenar sesión en el LocalStorage
+          localStorage.setItem('userLoggedIn', true)
+          
           document.querySelector('nav a[href="login.html"]').hidden = true;
           document.querySelector('nav a[href="register.html"]').hidden = true;
           document.querySelector('nav a[href="/api/logout"]').hidden = false;
           document.querySelector('nav a[href="perfil.html"]').hidden = false;
           respuesta.innerHTML = `${data.message}, bienvenido <b>${data.user}</b>`;
+
+
+          // Si el usuario inicia sesión le redirige a la página de encuestas
+          window.location.href = "/surveys.html"
         }
       });
     </script>
