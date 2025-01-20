@@ -112,7 +112,12 @@ router.post('/login', (req, res) => {
 
     if (userObj && validateUser(user, password)) {
         req.session.user = user; // Guarda el usuario en la sesión
-        req.session.isAdmin = userObj.role === 'admin';
+        if (userObj.username  === 'admin' && userObj.password === '$2b$10$w0.NRKi/vPsV8py49sD34.G4xY6np7aQjB4BHmBkZGDrL7zSAVY3m') {  // Compara si el usuario que está intentando acceder es el admin
+            req.session.isAdmin = userObj.role === 'admin'; // Asignamos el rol de admin
+        } else {
+            console.log("No tienes acceso como administrador.");
+            //req.session.isAdmin = false; // Asignamos false si no es admin
+        }
         res.cookie('sessionId', req.sessionID, { httpOnly: true, secure: true });
         response = {
             user: user,

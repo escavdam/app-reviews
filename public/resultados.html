@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Gráfico de Reseñas</title>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <link rel="stylesheet" href="/style.css">
+</head>
+<body>
+    <h1>Gráfico de Reseñas</h1>
+
+    <!-- Contenedor para el gráfico -->
+    <div style="width: 80%; margin: 0 auto;">
+        <canvas id="reviewsChart"></canvas>
+    </div>
+
+    <script>
+        // Función para cargar las reseñas desde la API y clasificar por rating
+        async function loadReviewsData() {
+            try {
+                const response = await fetch('/api/reviews');  // Hacemos una solicitud GET a /api/reviews
+                const reviews = await response.json();  // Parseamos la respuesta como JSON
+                
+                // Inicializamos contadores para cada categoría
+                let goodCount = 0;
+                let neutralCount = 0;
+                let badCount = 0;
+
+                // Clasificamos las reseñas según su rating
+                reviews.forEach(review => {
+                    if (review.rating === 'good') {
+                        goodCount++;
+                    } else if (review.rating === 'neutral') {
+                        neutralCount++;
+                    } else if (review.rating === 'bad') {
+                        badCount++;
+                    }
+                });
+
+                // Crear el gráfico con los datos clasificados
+                createChart(goodCount, neutralCount, badCount);
+
+            } catch (error) {
+                console.error('Error fetching reviews data:', error);
+            }
+        }
+
+        // Función para crear el gráfico con los datos de las reseñas
+        function createChart(goodCount, neutralCount, badCount) {
+            const ctx = document.getElementById('reviewsChart').getContext('2d');
+            
+            // Crear el gráfico de barras
+            new Chart(ctx, {
+                type: 'bar',  // Tipo de gráfico: barras
+                data: {
+                    labels: ['Good', 'Neutral', 'Bad'],  // Categorías
+                    datasets: [{
+                        label: 'Reseñas por categoría',
+                        data: [goodCount, neutralCount, badCount],  // Datos del gráfico
+                        backgroundColor: ['#4CAF50', '#FFC107', '#F44336'],  // Colores de las barras
+                        borderColor: ['#4CAF50', '#FFC107', '#F44336'],  // Colores de los bordes
+                        borderWidth: 1
+                    }]
+                },
+                options: {
+                    scales: {
+                        y: {
+                            beginAtZero: true  // Comienza el eje Y en 0
+                        }
+                    }
+                }
+            });
+        }
+
+        // Llamamos a la función para cargar las reseñas y generar el gráfico
+        loadReviewsData();
+    </script>
+</body>
+</html>
