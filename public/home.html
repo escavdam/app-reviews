@@ -16,6 +16,15 @@
       <a href="/api/logout" hidden>Cerrar sesión</a>
     </nav>
   </header>
-  <main></main>
+  <main>
+    <script>
+      const userLoggedIn = localStorage.getItem('userLoggedIn');
+      if (userLoggedIn) {
+        window.location.href = "/surveys.html";
+      }else if (!userLoggedIn) {
+        window.location.href = "/login.html";
+      }
+    </script>
+  </main>
 </body>
 </html>
