@@ -1,5 +1,6 @@
 const express = require('express');
 const router = express.Router();
+const authMiddleware = require('../middleware/auth');
 const path = require('path');
 const { createUser, getUser, getAllUsers, updateUser, deleteUser, validateUser } = require('../models/users');
 
@@ -93,7 +94,7 @@ router.post('/register', (req, res) => {
     }
 });
 
-router.get("/perfil", (req, res) => {
+router.get("/perfil",  authMiddleware ,(req, res) => {
     if (req.session.user) {
         const response = {
             user: req.session.user,
@@ -103,6 +104,11 @@ router.get("/perfil", (req, res) => {
     } else {
         res.status(401).send('Debes hacer login');
     }
+});
+
+router.get("/surveys",  authMiddleware ,(req, res) => {
+    res.sendFile(__dirname + '/public/surveys.html');
+    res.status(200).send(response);
 });
 
 router.post('/login', (req, res) => {
@@ -134,8 +140,13 @@ router.post('/login', (req, res) => {
 });
 
 router.get('/logout', (req, res) => {
-    req.session.destroy();
-    res.status(200).redirect('/login.html');
+    req.session.destroy((err) => {
+        if (err) {
+            return res.status(500).send('Error al cerrar sesión');
+        }
+        res.clearCookie('connect.sid'); // Asegúrate de limpiar la cookie de sesión
+        res.status(200).redirect('/logout.html');
+    });
 });
 
 

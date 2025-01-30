@@ -1,6 +1,7 @@
 const dotenv = require('dotenv').config();
 const express = require('express');
 const nunjucks = require('nunjucks');
+const authMiddleware = require('./middleware/auth');
 const app = express();
 const port = 3000;
 const COOKIE_SECRET = process.env.COOKIE_SECRET;
@@ -25,6 +26,12 @@ app.use("/api/", reviews);
 app.get("/", (req,res) => {
     res.sendFile(__dirname + '/public/home.html');
 })
+
+/*
+app.get('/surveys', authMiddleware, (req, res) => {
+  res.sendFile(__dirname + '/public/surveys.html');
+});
+*/
 
 // Configuración de Nunjucks
 nunjucks.configure('views', {

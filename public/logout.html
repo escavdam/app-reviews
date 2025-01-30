@@ -46,6 +46,7 @@
         }
     </style>
     <script>
+        /*
         function cerrarSesion() {
             // Elimina las cookies de sesión (aquí debes ajustar el nombre de las cookies que usas)
             document.cookie = "nombre_cookie=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;";
@@ -59,10 +60,17 @@
                 window.location.href = 'login.html'; // Cambia 'login.html' por tu página de inicio de sesión
             }, 2000); // 2 segundos de espera para mostrar el feedback
         }
+        */
 
         // Ejecutar la función de cerrar sesión al cargar la página
         window.onload = function() {
-            cerrarSesion();
+            // Muestra el mensaje de feedback
+            document.getElementById('feedback-message').innerText = "Sesión cerrada exitosamente. Redirigiendo...";
+            
+            // Redirige después de un pequeño delay (para mostrar el feedback)
+            setTimeout(function() {
+                window.location.href = 'login.html'; // Cambia 'login.html' por tu página de inicio de sesión
+            }, 2000); // 2 segundos de espera para mostrar el feedback
         }
     </script>
 </head>
