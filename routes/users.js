@@ -98,7 +98,7 @@ router.get("/perfil",  authMiddleware ,(req, res) => {
     if (req.session.user) {
         const response = {
             user: req.session.user,
-            //isAdmin: req.session.isAdmin
+            
         }
         res.status(200).send(response);
     } else {
@@ -148,6 +148,9 @@ router.get('/logout', (req, res) => {
         res.status(200).redirect('/logout.html');
     });
 });
+
+
+
 
 
 module.exports = router;
