@@ -1,7 +1,7 @@
 // routes/reviewRoutes.js
 const express = require('express');
 const router = express.Router();
-const { getAllReviews, addReview } = require('../model/reviews');
+const { getAllReviews, addReview } = require('../models/review');
 
 // GET /reviews - Get all reviews
 router.get('/', (req, res) => {
