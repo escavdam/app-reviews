@@ -44,7 +44,7 @@
           respuesta.innerHTML = data.error + '. ¿No tienes cuenta? <a href="/register.html">Regístrate</a>';
         } else {
           // Almacenar sesión en el LocalStorage
-          localStorage.setItem('userLoggedIn', true)
+          // localStorage.setItem('userLoggedIn', true)
           
           document.querySelector('nav a[href="login.html"]').hidden = true;
           document.querySelector('nav a[href="register.html"]').hidden = true;

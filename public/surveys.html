@@ -14,78 +14,75 @@
         </nav>
     </header> 
     
+
     <div class="encuesta-container">
         <h1 id="changeface"></h1>
         <form id="form">
-            <button type="button" id="btnGood" >Good!</button>
-            <button type="button" id="btnRegular" >Regular</button>
-            <button type="button" id="btnBad" >Bad</button>
-        
+            <button type="button" id="btnGood">Good!</button>
+            <button type="button" id="btnRegular">Regular</button>
+            <button type="button" id="btnBad">Bad</button>
             <input type="text" id="inputText">
             <button type="submit">Send</button>
         </form>
     </div>
 
     <script>
-        document.addEventListener('DOMContentLoaded', () =>{
-
-            if(!localStorage.getItem('userLoggedIn')){
-                window.location.href = "/login.html" // Si no esta logeado, redirige al usuario a la pagina de login
+        document.addEventListener('DOMContentLoaded', async () => {
+            try {
+                const response = await fetch('/api/perfil');
+                if (!response.ok) {
+                    window.location.href = "/login.html";
+                }
+            } catch (error) {
+                console.error('Error verifying session:', error);
+                window.location.href = "/login.html";
             }
 
             const btnGood = document.getElementById('btnGood');
             const btnRegular = document.getElementById('btnRegular');
             const btnBad = document.getElementById('btnBad');
-
-            const changeFace = document.querySelector("#changeface")
+            const changeFace = document.querySelector("#changeface");
 
             btnGood.addEventListener('click', () => {
-                const goodFace = "😊"
+                const goodFace = "😊";
                 changeFace.innerHTML = goodFace;
             });
 
             btnRegular.addEventListener('click', () => {
-                const regularFace = "😐"
+                const regularFace = "😐";
                 changeFace.innerHTML = regularFace;
             });
 
             btnBad.addEventListener('click', () => {
-                const badFace = "👎"
+                const badFace = "👎";
                 changeFace.innerHTML = badFace;
             });
 
             const formInputText = document.getElementById('form');
-
             formInputText.addEventListener('submit', (e) => {
                 e.preventDefault();
 
-                const message = document.getElementById('inputText').value
-                //console.log(message)
+                const message = document.getElementById('inputText').value;
 
-                // Validar longitud del mensaje
                 if (message.length > 256) {
                     alert('El mensaje no debe exceder los 256 caracteres.');
                     return;
                 }
 
-                const emoji = document.getElementById('changeface').textContent
-
+                const emoji = document.getElementById('changeface').textContent;
                 let rating;
-                
+
                 if (emoji === "😊") {
-                    rating = "good"
-                }else if(emoji === "👎"){
-                    rating = "bad"
-                }else if(emoji === "😐"){
-                    rating = "neutral"
-                }else{
-                    alert('No has seleccionado ninguna valoración')
+                    rating = "good";
+                } else if (emoji === "👎") {
+                    rating = "bad";
+                } else if (emoji === "😐") {
+                    rating = "neutral";
+                } else {
+                    alert('No has seleccionado ninguna valoración');
                     return;
                 }
 
-                //console.log(rating)
-
-                // Enviar datos de la encuesta al servidor
                 fetch('/api/reviews', {
                     method: 'POST',
                     headers: {
@@ -95,6 +92,7 @@
                 })
                 .then(response => response.json())
                 .then(data => {
+                    window.location.href = "/perfil.html";
                     alert('Encuesta enviada correctamente!');
                 })
                 .catch(error => {
