@@ -19,12 +19,17 @@ const adminPasswordHash = '$2b$10$w0.NRKi/vPsV8py49sD34.G4xY6np7aQjB4BHmBkZGDrL7
 const adminUsername = 'admin';
 
 // Insertar el usuario administrador directamente
-try {
-    const insert = db.prepare("INSERT INTO users (username, password) VALUES (?, ?)");
-    insert.run(adminUsername, adminPasswordHash);
-    console.log('Admin user created');
-} catch (err) {
-    console.error('Error initializing admin user:', err);
+if(db.prepare("SELECT count(*) as count FROM users WHERE username = ?").get(adminUsername).count == null) {
+    try {
+        const insert = db.prepare("INSERT INTO users (username, password) VALUES (?, ?)");
+        insert.run(adminUsername, adminPasswordHash);
+        console.log('Admin user created');
+    } catch (err) {
+        console.error('Error creating admin user:', err);
+    }
+}
+else{
+    return;
 }
 
 module.exports = db;
