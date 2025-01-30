@@ -98,7 +98,7 @@ router.get("/perfil",  authMiddleware ,(req, res) => {
     if (req.session.user) {
         const response = {
             user: req.session.user,
-            //isAdmin: req.session.isAdmin
+            
         }
         res.status(200).send(response);
     } else {
